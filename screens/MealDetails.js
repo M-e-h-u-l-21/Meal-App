@@ -1,11 +1,24 @@
-import { Image, View, Text, StyleSheet, ScrollView } from "react-native";
+import { Image, View, Text, StyleSheet, ScrollView ,Button} from "react-native";
 import { MEALS } from "../data/dummy-data";
+import { useLayoutEffect } from "react";
 import MealDetail from "../components/MealDetail";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
+import HeaderIcon from "../components/MealDetail/HeaderIcon";
+import 'react-native-gesture-handler'
 
-function MealDetails({ route }) {
+function MealDetails({ route , navigation}) {
   const mealId = route.params.id;
+  function headerButtonPressHandler(){
+    console.log('Pressed!')
+  }
+  useLayoutEffect(()=>{
+    navigation.setOptions({
+      headerRight:()=>{
+        return <HeaderIcon icon="star" color="white"  onPress={headerButtonPressHandler}/>
+      }
+    })
+  },[])
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
   return (
